@@ -1,18 +1,17 @@
 <template>
   <div>
-      <ArticleRegister/>
-    
+    <ArticleRegister />
   </div>
 </template>
 
 <script>
-import ArticleRegister from '@components/article/ArtilecRegister.vue'
+import ArticleRegister from "../components/article/ArticleRegister.vue";
 export default {
-    components:ArticleRegister,
+  components: {
+      ArticleRegister
+  },
   data() {
-    return {
-      
-    };
+    return {};
   },
 };
 </script>

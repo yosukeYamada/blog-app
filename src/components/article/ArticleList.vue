@@ -23,5 +23,22 @@
 export default {
   name: "ArticleList",
   components: {},
+  data(){
+    return{
+      articleList:[]
+    }
+  },
+  methods:{
+    getArticleList(){
+      this.$axios.get("/article")
+      .then(response=>{
+        this.articleList=response.data
+      })
+      .catch(error=>{
+        console.log(error)
+        alert("みっす")
+      })
+    }
+  }
 };
 </script>

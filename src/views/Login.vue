@@ -18,7 +18,7 @@ export default {
     },
     methods:{
         toRegisterArticle(){
-            this.$router.push({name:"ArticleRegister"})
+            this.$router.push({path:"/myPage/top"})
         }
     }
 }

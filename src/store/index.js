@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loginUser:null,
+    loginStatus:false,
     articleList:[],
     categoryList:[],
     uniqueCategoryList:[]
@@ -27,6 +29,12 @@ export default new Vuex.Store({
     },
     addUniqueCategoryList(state,uniqueCategory){
       state.uniqueCategoryList.push(uniqueCategory)
+    },
+    setLoginUser(state,loginUser){
+      state.loginUser=loginUser
+    },
+    setLoginStatus(state,loginStatus){
+      state.loginStatus=loginStatus
     }
   },
   actions: {
@@ -41,6 +49,12 @@ export default new Vuex.Store({
     },
     addUniqueCategoryList({commit},uniqueCategory){
       commit("addUniqueCategoryList",uniqueCategory)
+    },
+    setLoginUser({commit},loginUser){
+      commit("setLoginUser",loginUser)
+    },
+    setLoginStatus({commit},loginStatus){
+      commit("setLoginStatus",loginStatus)
     }
 
   },

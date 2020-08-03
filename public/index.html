@@ -15,5 +15,28 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyB57NKfxDawoDlpzDFYYTgQPxgNEe04rMU",
+    authDomain: "my-blog-b4f39.firebaseapp.com",
+    databaseURL: "https://my-blog-b4f39.firebaseio.com",
+    projectId: "my-blog-b4f39",
+    storageBucket: "my-blog-b4f39.appspot.com",
+    messagingSenderId: "3630910110",
+    appId: "1:3630910110:web:e48683e59be97eb969498f",
+    measurementId: "G-VM2RT4SJKS"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
   </body>
 </html>

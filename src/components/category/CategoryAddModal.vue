@@ -10,7 +10,7 @@
         >
           カテゴリーを新規登録する
         </v-btn>
-        <p>{{categoryList}}</p>
+        <p>{{uniqueCategoryList}}</p>
       </template>
       <v-card>
         <v-card-title>
@@ -20,17 +20,16 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="12" md="12">
-                <v-text-field label="カテゴリー名" single-line solo required v-model="newCategoryName"></v-text-field>
-                <p>{{newCategoryName}}</p>
+                <v-text-field label="カテゴリー名" single-line solo required v-model="newUniqueCategoryName"></v-text-field>
               </v-col>
             </v-row>
             <v-row>
                 <v-col>
                     <v-list>
                         <v-list-item-group>
-                            <v-list-item v-for="(item,index) in categoryList" :key="index">
+                            <v-list-item v-for="(item,index) in uniqueCategoryList" :key="index">
                                 <v-list-item-content>
-                                    <v-list-item-title v-text="item.categoryName"></v-list-item-title>
+                                    <v-list-item-title v-text="item.uniqueCategoryName"></v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
 
@@ -75,7 +74,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="registerNewCategory()">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="registerNewUniqueCategory()">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -88,22 +87,22 @@ export default {
     data(){
         return{
             dialog:false,
-            categoryList:[],
-            newCategoryName:""
+            uniqueCategoryList:[],
+            newUniqueCategoryName:""
         }
     },
     created(){
-        this.categoryList = this.$store.state.categoryList
+        this.uniqueCategoryList = this.$store.state.uniqueCategoryList
     },
     methods:{
-      ...mapActions(["addCategoryList"]),
-      registerNewCategory(){
-        this.$axios.post("/category",{
-          categoryName:this.newCategoryName,
+      ...mapActions(["addUniqueCategoryList"]),
+      registerNewUniqueCategory(){
+        this.$axios.post("/unique-category",{
+          uniqueCategoryName:this.newUniqueCategoryName,
           registerUserId:1,
         })
         .then(response=>{
-          this.addCategoryList(response.data);
+          this.addUniqueCategoryList(response.data);
           this.dialog = false
         })
         .catch(error=>{

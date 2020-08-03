@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    articleList:[]
+    articleList:[],
+    categoryList:[]
   },
   mutations: {
     setArticleList(state,articleList){
@@ -13,6 +14,12 @@ export default new Vuex.Store({
     },
     addArticleList(state,article){
       state.articleList.push(article)
+    },
+    setCategoryList(state,categoryList){
+      state.categoryList=categoryList
+    },
+    addCategoryList(state,category){
+      state.categoryList.push(category)
     }
   },
   actions: {
@@ -21,6 +28,12 @@ export default new Vuex.Store({
     },
     addArticleList({commit},article){
       commit("addArticleList",article)
+    },
+    setCategoryList({commit},categoryList){
+      commit("setCategoryList",categoryList)
+    },
+    addCategoryList({commit},category){
+      commit("addCategoryList",category)
     }
 
   },

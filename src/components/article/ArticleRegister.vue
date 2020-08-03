@@ -1,26 +1,53 @@
 <template>
   <div>
     <v-form id="post-form">
-      <p>タイトル</p>
-      <v-text-field label="Title" v-model="articleTitle" single-line solo></v-text-field>
-      <div id="editor">
-        <p>内容</p>  
-        <v-textarea label="content" v-model="articleContent" single-line solo></v-textarea>
-      </div>
-      <v-spacer></v-spacer>
-      <div>カテゴリー</div>
-      <v-select
-        label="category"
-        :items="items"
-        item-text="categoryName"
-        item-value="categoryId"
-        v-model="categoryId"
-        required
-        solo
-      ></v-select>
-      <v-hover>aaaa</v-hover>
-      <v-btn @click="registerArticle()">送信</v-btn>
-      <v-btn @click="check()">削除</v-btn>
+      <v-row>
+        <v-col>
+          <p>タイトル</p>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-text-field label="Title" v-model="articleTitle" single-line solo></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <p>内容</p>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-textarea label="content" v-model="articleContent" single-line solo></v-textarea>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <div>カテゴリー</div>
+        </v-col>
+        <v-col>
+          <CategoryAddModal/>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-select
+            label="category"
+            :items="items"
+            item-text="categoryName"
+            item-value="categoryId"
+            v-model="categoryId"
+            required
+            solo
+          ></v-select>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-btn @click="registerArticle()">送信</v-btn>
+          <v-btn @click="check()">削除</v-btn>
+        </v-col>
+      </v-row>
     </v-form>
     <div id="preview">
       <div v-html="compiledMarkdown"></div>
@@ -30,13 +57,18 @@
 </template>
 
 <script>
-import {mapActions} from "vuex"
+import { mapActions } from "vuex";
 import marked from "marked";
 import hljs from "highlightjs";
+import CategoryAddModal from "../category/CategoryAddModal.vue"
 export default {
   name: "ArticleRegister",
+  components:{
+CategoryAddModal
+  },
   data() {
     return {
+      modal:false,
       articleTitle: "",
       articleContent: "",
       categoryId: null,
@@ -68,9 +100,12 @@ export default {
           registerUserId: 1,
         })
         .then((response) => {
-          this.addArticleList(response.data)
-          alert("投稿しました。")
-          this.$router.push({name:"articleDetail",params:response.data.articleId})
+          this.addArticleList(response.data);
+          alert("投稿しました。");
+          this.$router.push({
+            name: "articleDetail",
+            params: response.data.articleId,
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -86,6 +121,9 @@ export default {
           console.log(error);
         });
     },
+    openModal(){
+      this.modal=true
+    }
   },
   created() {
     marked.setOptions({
@@ -105,13 +143,13 @@ export default {
 <style src='highlightjs/styles/solarized_dark.css'></style>
 
 <style>
-  .v-input{
-    font-size: 1.5em;
-  }
-  .v-input .v-label{
-    font-size: 1em;
-  }
-  .v-application code{
-    background-color : white
-  }
+.v-input {
+  font-size: 1.5em;
+}
+.v-input .v-label {
+  font-size: 1em;
+}
+.v-application code {
+  background-color: white;
+}
 </style>

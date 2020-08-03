@@ -3,7 +3,7 @@
         <v-form>
             <v-text-field label="ユーザID"></v-text-field>
             <v-text-field label=”パスワード></v-text-field>
-            <v-btn @click="toRegisterArticle">ログイン</v-btn>
+            <v-btn @click="toMyPage">ログイン</v-btn>
         </v-form>
     </div>
 </template>
@@ -17,7 +17,7 @@ export default {
         }
     },
     methods:{
-        toRegisterArticle(){
+        toMyPage(){
             this.$router.push({path:"/myPage/top"})
         }
     }

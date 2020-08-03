@@ -10,9 +10,7 @@
                 <div>{{article.articleTitle}}</div>
               </v-card-title>
               <v-card-text>
-                <div style="white-space:pre-wrap; word-wrap:break-word;">{{article.articleContent}}</div>
-                <div>tag</div>
-                <div>{{article.categoryId}}</div>
+                <div style="white-space:pre-wrap; word-wrap:break-word;">{{article.articleContent | articleContentTruncate}}</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -36,6 +34,29 @@ export default {
       articleList: [],
       loading: false,
     };
+  },
+  computed:{
+    articleContent(){
+      return null
+    }
+
+  },
+  filters:{
+    articleContentTruncate(articleContent){
+      let length = 40
+      let ommision = "..."
+      if(articleContent.length <= length){
+        return articleContent
+
+      }
+
+      if(articleContent.indexOf('```')){
+        console.log(articleContent.indexOf('```'))
+        articleContent = articleContent.replace('```','サンプルコード 言語 : ')
+      }
+      return articleContent.substring(0,length)+ommision
+    }
+
   },
   methods: {
     ...mapActions(["setArticleList"]),

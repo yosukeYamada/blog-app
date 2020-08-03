@@ -1,17 +1,19 @@
 <template>
   <div>
-    <v-card elevation="10">
-      <v-card-title :class="[`text-h3`]">{{article.articleTitle}}</v-card-title>
-      <v-card-text>
-        <div
-          class="text--primary"
-          style="white-space:pre-wrap; word-wrap:break-word;"
-        >
-        <div v-html="compiledMarkdown" :class="[`text-body-1`]">
-        </div>
-        </div>
-      </v-card-text>
-    </v-card>
+    <v-row>
+      <v-col cols="12" md="12">
+        <v-card elevation="10">
+          <v-spacer></v-spacer>
+          <v-card-title :class="[`text-h3`]">{{article.articleTitle}}</v-card-title>
+          <v-spacer></v-spacer>
+          <v-card-text>
+            <div class="text--primary" style="white-space:pre-wrap; word-wrap:break-word;">
+              <div v-html="compiledMarkdown" :class="[`text-body-1`]"></div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -21,8 +23,8 @@ import hljs from "highlightjs";
 export default {
   data() {
     return {
-      article:"",
-      articleContent:"",
+      article: "",
+      articleContent: "",
       markdownText: "",
     };
   },
@@ -34,13 +36,12 @@ export default {
       highlight(code, lang) {
         return hljs.highlightAuto(code, [lang]).value;
       },
-    })
+    });
     let articleId = this.$route.params.articleId;
-    this.article= this.$store.state.articleList.find((article) => {
+    this.article = this.$store.state.articleList.find((article) => {
       return article.articleId === articleId;
     });
-    this.articleContent = this.article.articleContent
-    
+    this.articleContent = this.article.articleContent;
   },
   computed: {
     compiledMarkdown() {
@@ -54,8 +55,7 @@ export default {
 </script>
 <style src='highlightjs/styles/solarized_dark.css'></style>
 <style scoped>
-.v-card-title{
-    font-size: 3.5em;
-  }
-
+.v-card-title {
+  font-size: 3.5em;
+}
 </style>

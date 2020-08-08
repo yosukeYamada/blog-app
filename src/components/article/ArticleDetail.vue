@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       // article: "",
-      articleContent: "",
+      // articleContent: "",
       markdownText: "",
     };
   },
@@ -53,6 +53,9 @@ export default {
     // this.articleContent = this.article.articleContent;
   },
   computed: {
+    articleContent(){
+      return this.article.articleContent
+    },
     compiledMarkdown() {
       return marked(this.articleContent);
     },

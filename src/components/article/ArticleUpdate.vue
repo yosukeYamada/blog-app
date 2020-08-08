@@ -2,10 +2,10 @@
       <div>
     <v-form id="post-form">
       <p>タイトル</p>
-      <v-text-field label="Title" v-model="articleTitle" single-line solo></v-text-field>
+      <v-text-field label="Title" v-model="article.articleTitle" single-line solo></v-text-field>
       <div id="editor">
         <p>内容</p>  
-        <v-textarea label="content" v-model="articleContent" single-line solo></v-textarea>
+        <v-textarea label="content" v-model="article.articleContent" single-line solo></v-textarea>
       </div>
       <v-spacer></v-spacer>
       <div>カテゴリー</div>
@@ -14,7 +14,7 @@
         :items="items"
         item-text="categoryName"
         item-value="categoryId"
-        v-model="categoryId"
+        v-model="article.categoryId"
         required
         solo
       ></v-select>
@@ -25,7 +25,7 @@
     <v-divider></v-divider>
     <v-container>
       <p>プレビュー</p>
-    <ArticleDetail/>
+    <ArticleDetail :article="article"/>
     </v-container>
     <!-- <div id="preview">
       <div v-html="compiledMarkdown"></div>
@@ -47,11 +47,11 @@ export default {
   },
   data() {
     return {
-        articleId:null,
-      articleTitle: "",
-      articleContent: "",
-      categoryId: null,
-      version:null,
+        // articleId:null,
+      // articleTitle: "",
+      // articleContent: "",
+      // categoryId: null,
+      // version:null,
       items: [
         {
           categoryName: "Java",
@@ -68,6 +68,7 @@ export default {
       ],
     };
   },
+  
   methods: {
     ...mapActions(["setArticleList"]),
     updateArticle() {
@@ -75,11 +76,11 @@ export default {
       this.$axios
         .put(URL, {
           blogId: 1,
-          articleId:this.articleId,
-          articleTitle: this.articleTitle,
-          articleContent: this.articleContent,
-          categoryId: this.categoryId,
-          version:this.version,
+          articleId:this.article.articleId,
+          articleTitle: this.article.articleTitle,
+          articleContent: this.article.articleContent,
+          categoryId: this.article.categoryId,
+          version:this.article.version,
           updateUserId: 1,
         })
         .then((response) => {
@@ -96,9 +97,9 @@ export default {
         });
     },
     clear() {
-      this.articleTitle= "",
-      this.articleContent= "",
-      this.categoryId= null
+      this.article.articleTitle= "",
+      this.article.articleContent= "",
+      this.article.categoryId= null
     },
   },
   created() {
@@ -108,20 +109,22 @@ export default {
         return hljs.highlightAuto(code, [lang]).value;
       },
     });
-    let articleId = this.$route.params.articleId;
-    let nowArticle = this.$store.state.articleList.find(article=>{
-        return article.articleId === articleId
-    })
-    this.articleId = articleId
-    this.version = nowArticle.version
-    this.categoryId=nowArticle.categoryId
-    this.articleTitle = nowArticle.articleTitle
-    this.articleContent = nowArticle.articleContent
+    // this.articleId = this.$route.params.articleId;
+    // this.version = this.article.version
+    // this.categoryId=this.article.categoryId
+    // this.articleTitle = this.article.articleTitle
+    // this.articleContent = this.article.articleContent
   },
   computed: {
     compiledMarkdown() {
       return marked(this.articleContent);
     },
+    article(){
+      let articleId = this.$route.params.articleId;
+      return this.$store.state.articleList.find(article=>{
+        return article.articleId === articleId
+    })
+    }
   },
 };
 </script>

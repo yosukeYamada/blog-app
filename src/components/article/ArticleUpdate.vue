@@ -21,20 +21,30 @@
       <v-btn @click="updateArticle()">更新</v-btn>
       <v-btn @click="clear()">削除</v-btn>
     </v-form>
-    <div id="preview">
+    <v-spacer/>
+    <v-divider></v-divider>
+    <v-container>
+      <p>プレビュー</p>
+    <ArticleDetail/>
+    </v-container>
+    <!-- <div id="preview">
       <div v-html="compiledMarkdown"></div>
-    </div>
-    <p>{{categoryId}}</p>
+    </div> -->
   </div>
 </template>
 
 
 <script>
+import ArticleDetail from "./ArticleDetail.vue"
 import marked from "marked";
 import hljs from "highlightjs";
 import {mapActions} from "vuex"
 export default {
   name: "ArticleRegister",
+  components:{
+    ArticleDetail
+
+  },
   data() {
     return {
         articleId:null,

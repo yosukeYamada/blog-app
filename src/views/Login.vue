@@ -29,14 +29,15 @@ export default {
         .then((response) => {
           this.setLoginUser(response);
           this.setLoginStatus(true);
-            this.$router.push({ path: "/myPage/top" });
         })
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
           console.log(errorCode);
           console.log(errorMessage);
-        })
+        });
+      // await this.axios
+      this.$router.push({ path: "/myPage/top" });
     },
   },
 };

@@ -16,11 +16,7 @@
                     >{{item.articleTitle}}</router-link>
                   </td>
                   <td>{{item.categoryId}}</td>
-                  <td><router-link
-                      :to="{name:'ArticleUpdate',
-                  params:{articleId:item.articleId}
-                }"
-                    >{{item.articleId}}</router-link>
+                  <td><v-btn @click="toUpdateArticle(item)">編集する</v-btn>
                     </td>
                 </tr>
               </tbody>
@@ -67,8 +63,9 @@ export default {
     },
   },
   methods: {
-    aa() {
-    },
+    toUpdateArticle(item){
+      this.$router.push({name:"ArticleUpdate",params:{articleId:item.articleId}})
+    }
   },
 };
 </script>

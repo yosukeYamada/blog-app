@@ -46,6 +46,7 @@ const routes = [
     children: [
       {
         path: "top",
+        name: "myPageTop",
         component: () => import("../components/myPage/Top.vue"),
       },
       {

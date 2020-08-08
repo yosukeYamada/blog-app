@@ -5,22 +5,37 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn @click="toLoginPage()">
+    <v-btn @click="toLoginPage()" v-if="loginUser === null">
       <span class="mr-2">ログイン</span>
       <v-icon>mdi-open-in-new</v-icon>
     </v-btn>
+    <v-card v-else-if="loginUser.user.displayName === null">
+      <span>こんにちは</span>
+      <router-link :to="{name:'myPageTop'}">名前未設定</router-link>
+      <span>さん</span>
+    </v-card>
+    <v-card v-else>
+      <span>こんにちは</span>
+      <router-link :to="{name:'myPageTop'}">{{loginUser.user.displayName}}</router-link>
+      <span>さん</span>
+    </v-card>
   </v-app-bar>
 </template>
 
 <script>
 export default {
-    methods:{
-        toLoginPage(){
-            this.$router.push({name:"Login"})
-        },
-        toHomePage(){
-          this.$router.push({name:"Home"})
-        }
-    }
-}
+  methods: {
+    toLoginPage() {
+      this.$router.push({ name: "Login" });
+    },
+    toHomePage() {
+      this.$router.push({ name: "Home" });
+    },
+  },
+  computed: {
+    loginUser() {
+      return this.$store.state.loginUser;
+    },
+  },
+};
 </script>

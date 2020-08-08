@@ -27,8 +27,8 @@
 import marked from "marked";
 import hljs from "highlightjs";
 export default {
-  props:{
-    article:Object
+  props: {
+    article: Object,
   },
   data() {
     return {
@@ -53,8 +53,8 @@ export default {
     // this.articleContent = this.article.articleContent;
   },
   computed: {
-    articleContent(){
-      return this.article.articleContent
+    articleContent() {
+      return this.article.articleContent;
     },
     compiledMarkdown() {
       return marked(this.articleContent);
@@ -69,5 +69,8 @@ export default {
 <style scoped>
 .v-card-title {
   font-size: 3.5em;
+}
+.v-application code {
+  background-color: white;
 }
 </style>

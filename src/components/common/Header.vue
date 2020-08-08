@@ -19,6 +19,7 @@
       <router-link :to="{name:'myPageTop'}">{{loginUser.user.displayName}}</router-link>
       <span>さん</span>
     </v-card>
+    <v-btn v-if="loginUser !== null" class="ml-3"><span class="mr-2">ログアウト</span></v-btn>
   </v-app-bar>
 </template>
 

@@ -62,6 +62,9 @@ export default new Vuex.Store({
     },
     setMyArticleHistory({commit},articleList){
       commit("setLoginStatus",articleList)
+    },
+    setCategoryList({commit},categoryList){
+      commit("setCategoryList",categoryList)
     }
 
   },

@@ -28,7 +28,9 @@ import marked from "marked";
 import hljs from "highlightjs";
 export default {
   props: {
-    article: Object,
+    article: {
+      type: Object
+    },
   },
   data() {
     return {
@@ -46,6 +48,7 @@ export default {
         return hljs.highlightAuto(code, [lang]).value;
       },
     });
+    console.log(this.article);
     // let articleId = this.$route.params.articleId;
     // this.article = this.$store.state.articleList.find((article) => {
     //   return article.articleId === articleId;

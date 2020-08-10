@@ -23,7 +23,7 @@
 
 <script>
 import { VueLoading } from "vue-loading-template";
-import { mapActions } from "vuex";
+// import { mapActions } from "vuex";
 export default {
   name: "ArticleList",
   components: {
@@ -31,13 +31,16 @@ export default {
   },
   data() {
     return {
-      articleList: [],
+      // articleList: [],
       loading: false,
     };
   },
   computed:{
     articleContent(){
       return null
+    },
+    articleList(){
+      return this.$store.state.articleList
     }
 
   },
@@ -59,19 +62,19 @@ export default {
 
   },
   methods: {
-    ...mapActions(["setArticleList"]),
-    getArticleList() {
-      this.$axios
-        .get("/article")
-        .then((response) => {
-          this.articleList = response.data;
-          this.setArticleList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("みっす");
-        });
-    },
+    // ...mapActions(["setArticleList"]),
+    // getArticleList() {
+    //   this.$axios
+    //     .get("/article")
+    //     .then((response) => {
+    //       // this.articleList = response.data;
+    //       this.setArticleList(response.data);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       alert("みっす");
+    //     });
+    // },
     toArticleDetail(articleId) {
       this.$router.push({
         name: "ArticleDetail",
@@ -79,17 +82,17 @@ export default {
       });
     },
   },
-  created() {
-    Promise.resolve()
-      .then(() => {
-        this.loading = true;
-      })
-      .then(() => {
-        this.getArticleList();
-      })
-      .then(() => {
-        this.loading = false;
-      });
-  },
+  // created() {
+  //   Promise.resolve()
+  //     .then(() => {
+  //       this.loading = true;
+  //     })
+  //     .then(() => {
+  //       this.getArticleList();
+  //     })
+  //     .then(() => {
+  //       this.loading = false;
+  //     });
+  // },
 };
 </script>

@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import firebase from "firebase";
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -20,24 +19,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setLoginUser", "setLoginStatus"]),
+    ...mapActions(["firebaseLogin"]),
 
     login() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.userId, this.password)
-        .then((response) => {
-          this.setLoginUser(response);
-          this.setLoginStatus(true);
-        })
-        .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(errorCode);
-          console.log(errorMessage);
-        });
-      // await this.axios
-      this.$router.push({ path: "/myPage/top" });
+      this.firebaseLogin({userId:this.userId,password:this.password})
+     
     },
   },
 };

@@ -5,37 +5,56 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn @click="toLoginPage()" v-if="loginUser === null">
+    <v-btn @click="toLoginPage()" v-if="loginStatus === false">
       <span class="mr-2">ログイン</span>
       <v-icon>mdi-open-in-new</v-icon>
     </v-btn>
-    <v-card v-else-if="loginUser.user.displayName === null">
+    <v-card v-if="loginStatus === true &&loginUser.displayName === null">
       <span>こんにちは</span>
       <router-link :to="{name:'myPageTop'}">名前未設定</router-link>
       <span>さん</span>
     </v-card>
-    <v-card v-else>
+    <v-card v-if="loginStatus === true &&loginUser.displayName !== null">
       <span>こんにちは</span>
-      <router-link :to="{name:'myPageTop'}">{{loginUser.user.displayName}}</router-link>
+      <router-link :to="{name:'myPageTop'}">{{loginUser.displayName}}</router-link>
       <span>さん</span>
     </v-card>
-    <v-btn v-if="loginUser !== null" class="ml-3"><span class="mr-2">ログアウト</span></v-btn>
+    <v-btn v-if="loginStatus ===true" class="ml-3" @click="toLogout()">
+      <span class="mr-2">ログアウト</span>
+    </v-btn>
   </v-app-bar>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   methods: {
+    ...mapActions("loginUser", ["logout"]),
+    ...mapActions(["RESET_VUEX_STATE", "setLoginStatus", "firebaseLogout"]),
     toLoginPage() {
       this.$router.push({ name: "Login" });
     },
     toHomePage() {
       this.$router.push({ name: "Home" });
     },
+    toLogout() {
+      Promise.resolve()
+        .then(() => {
+          this.RESET_VUEX_STATE();
+          this.setLoginStatus(false);
+          this.firebaseLogout();
+        })
+        .then(() => {
+          this.$router.push({ name: "Home" });
+        });
+    },
   },
   computed: {
     loginUser() {
       return this.$store.state.loginUser;
+    },
+    loginStatus() {
+      return this.$store.state.loginStatus;
     },
   },
 };

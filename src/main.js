@@ -6,6 +6,7 @@ import vuetify from './plugins/vuetify';
 import axios from "axios";
 import firebase from 'firebase'
 // import vuex from './plugins/vuex.js'
+import initialState from './store/state.js'
 
 Vue.config.productionTip = false
 
@@ -24,8 +25,12 @@ var firebaseConfig = {
   appId: "1:3630910110:web:e48683e59be97eb969498f",
   measurementId: "G-VM2RT4SJKS"
 }
-
-
+// console.log(localStorage.length)
+// console.log(localStorage)
+// localStorage.removeItem('vuex')
+// console.log(localStorage)
+// console.log(localStorage.length)
+// console.log("bbbbbb")
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
@@ -38,5 +43,8 @@ new Vue({
   store,
   // vuex,
   vuetify,
-  render: h => h(App)
+  render: h => h(App),
+  created(){
+    localStorage.setItem('initialState', JSON.stringify(initialState));
+  }
 }).$mount('#app')
